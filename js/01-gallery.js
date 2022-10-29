@@ -1,20 +1,20 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-const gallery = document.querySelector('div.gallery'); 
+const gallery = document.querySelector('div.gallery');
 
 const createGallery = galleryItems
   .map(
     (item) =>
       `<div class="gallery__item">
-        <a class="gallery__link" href="${item.original}">
+        <div class="gallery__link">
           <img
             class="gallery__image"
             src="${item.preview}" 
             data-source="${item.original}"
             alt="${item.description}"
           />
-        </a>
+        </div>
       </div>`
   )
   .join("");
@@ -31,18 +31,16 @@ function selectImage(event) {
   console.log(selectedImage);
 };
 
-document.querySelector('div.gallery').onclick = () => {
 
-  basicLightbox.create(`
-		<img width="1400" height="900" src="https://placehold.it/1400x900">
-	`).show()
-};
+const images = document.querySelectorAll('.gallery__image');
+
+for (const image of images) {
+  image.onclick = (event) => {
+    event.preventDefault();
+    basicLightbox.create('<img  src="' + event.target.src + '">').show()
+  };
+
+}
 
 
 
-//const parent = document.querySelector("#parent");  // ?? nie wiem co chciałam xD
-
-
-
-console.log(gallery);
-console.log(galleryItems);
