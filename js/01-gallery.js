@@ -39,8 +39,7 @@ for (const image of images) {
     event.preventDefault();
     basicLightbox.create('<img  src="' + event.target.src + '">').show()
   };
-
 }
 
-
+console.log(galleryItems);
 
