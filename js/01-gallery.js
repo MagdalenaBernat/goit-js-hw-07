@@ -5,7 +5,7 @@ const gallery = document.querySelector('div.gallery');
 
 const createGallery = galleryItems
   .map(
-    (item) =>
+    (item) => 
       `<div class="gallery__item">
         <div class="gallery__link">
           <img
@@ -24,22 +24,21 @@ gallery.insertAdjacentHTML("beforeend", createGallery);
 gallery.addEventListener("click", selectImage);
 
 function selectImage(event) {
-  if (event.target.nodeName !== "DIV") {
+  event.preventDefault();
+  if (event.target.nodeName !== "IMG") {
     return;
   }
-  const selectedImage = event.target.dataset.original;
-  console.log(selectedImage);
+  const instance = basicLightbox.create(
+    `<img src="${event.target.dataset.source}" width="800" height="600">`
+  );
+  instance.show();
+
+  gallery.addEventListener("keydown", (event) => {
+    if (event.code === "Escape") {
+      instance.close();
+    }
+  });
 };
-
-
-const images = document.querySelectorAll('.gallery__image');
-
-for (const image of images) {
-  image.onclick = (event) => {
-    event.preventDefault();
-    basicLightbox.create('<img  src="' + event.target.src + '">').show()
-  };
-}
 
 console.log(galleryItems);
 
